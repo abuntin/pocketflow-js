@@ -72,7 +72,7 @@ async function callLLM(messages) {
 - Caching: You can use [node-cache](https://www.npmjs.com/package/node-cache), or any other caching library from the depths of npm. Recommend creating your own decorator function for ease of use though. Here's an example:
 
 ```javascript
-import NodeCache from "node-cache";
+import NodeCache from "node-cache"
 
 function CacheDecorator(cache: NodeCache, timeout: number = 60 * 5) {
     // target: class instance
@@ -90,17 +90,17 @@ function CacheDecorator(cache: NodeCache, timeout: number = 60 * 5) {
         
             if (cachedResult) {
                 console.log(`Returning cached result for ${propertyKey}`)
-                return cachedResult;
+                return cachedResult
             }
 
             const result = await originalMethod.apply(this, args)
-            cache.set(cacheKey, result, timeout); // Cache for 5 minutes
+            cache.set(cacheKey, result, timeout) // Cache for 5 minutes
 
             console.log(`Caching result for ${propertyKey}`)
 
             return result
         }
-        return descriptor;
+        return descriptor
     }
 }
 

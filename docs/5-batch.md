@@ -19,7 +19,7 @@ A **BatchNode** extends `FNode` but changes `prep()` and `exec()`:
 ```javascript
 class MapSummaries extends BatchNode {
     async prep(shared: SharedData) {   
-        // Suppose we have a big file; chunk it
+        // Suppose we have a big file, chunk it
         let content = shared["data"].get("largeText.txt", "")
         let chunk_size = 10000
         let chunks = [content[i:i+chunk_size] for i in range(0, len(content), chunk_size)]
