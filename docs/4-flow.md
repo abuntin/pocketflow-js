@@ -12,8 +12,8 @@ You define transitions with the syntax:
   This means if `nodeA.post()` returns `"default"` (or `void`), go to `nodeB`. 
   (Equivalent to `nodeA - "default" >> nodeB`)
 
-2. Named action transition: `nodeA - "actionName" >> nodeB`
-  This means if `nodeA.post()` returns `"actionName"`, go to `nodeB`.
+2. Named action transition: `nodeA - "action_name" >> nodeB`
+  This means if `nodeA.post()` returns `"action_name"`, go to `nodeB`.
 
 It’s possible to create loops, branching, or multi-step flows.
 
