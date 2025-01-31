@@ -12,6 +12,7 @@ interface Base {
     _run(shared: SharedData): Promise<any>
     run(shared: SharedData): Promise<any>
 }
+
 class ConditionalTransition {
     src: BaseNode
     action: string
@@ -21,6 +22,7 @@ class ConditionalTransition {
     }
     '>>'(tgt: Base): Base { return this.src.addSuccessor(tgt, this.action) }
 }
+
 class BaseNode implements Base {
     params: Params = {}
     successors: Record<string, Base> = {}
@@ -63,7 +65,7 @@ class FNode extends BaseNode {
         this.wait = wait
         this.currentRetry = currentRetry
     }
-    execFallback(prepRes: any, error: Error): Promise<any> { throw error }
+    async execFallback(prepRes: any, error: Error): Promise<any> { throw error }
     async _exec(prepRes: any): Promise<any> {
         for (this.currentRetry; this.currentRetry < this.maxRetries; this.currentRetry++) {
             try { return await this.exec(prepRes) }
@@ -115,6 +117,3 @@ class BatchFlow extends Flow {
         return await this.post(shared, prepRes, null)
     }
 }
-
-
-
