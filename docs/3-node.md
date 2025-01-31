@@ -19,10 +19,13 @@ A **Node** is the smallest building block. Each Node has 3 steps:
 3. `post(shared, prepRes, execRes)`
    - A reliable postprocessing step to write results back to the `shared` store and decide the next Action. 
    - Examples: *update DB, change states, log results, decide next Action*.
-   - Returns a **string** specifying the next Action (`"default"` if none).
+   - Returns a **string** specifying the next Action (`"default"` if `void`).
 
 > All 3 steps are optional. You could run only `prep` if you just need to prepare data without calling the LLM.
-{: .note }
+
+> Also note that almost all FNode functions are async, so you can run  both synchronous and asynchronous code, which lends **really well** to parallel execution and the asynchronous LLM calls. 
+
+>Ten points to JavaScript.
 
 
 ### Fault Tolerance & Retries
@@ -33,7 +36,7 @@ Nodes can **retry** execution if `exec()` raises an exception. You control this 
 - `wait` (int): The time to wait (in **seconds**) before each retry attempt. By default, `wait=0` (i.e., no waiting). Increasing this is helpful when you encounter rate-limits or quota errors from your LLM provider and need to back off.
 
 ```javascript 
-let myNode = SummarizeFile(maxRetries=3, wait=10)
+let myNode = new SummarizeFile(3, 10) // maxRetries=3, wait=10
 ```
 
 When an exception occurs in `exec()`, the Node automatically retries until:
@@ -66,12 +69,14 @@ class SummarizeFile extends FNode {
         this.currentRetry = currentRetry // let's you track retries from outside the Node
     }
     async prep(shared: SharedData) {
+        // all synchronous code
         let filename = this.params["filename"]
         return shared["data"][filename]
     }
     async exec(prepRes: any) {
         if (!prepRes) throw new Error("Empty file content!")
         let prompt = `Summarize this text in 10 words: ${prepRes}`
+        // an async LLM call, no problems at all
         let summary = await callLLM(prompt)
         return summary
     }
@@ -86,12 +91,12 @@ class SummarizeFile extends FNode {
     }
 }
 
-let summariseNode = new SummarizeFile(maxRetries=3)
+let summariseNode = new SummarizeFile(3) // maxRetries=3
 summariseNode.setParams({"filename": "testFile.txt"})
 
 // node.run() calls prep->exec->post
 // If exec() fails, it retries up to 3 times before calling execFallback()
-let actionResult = summariseNode.run(shared)
+let actionResult = await summariseNode.run(shared)
 
 print("Action returned:", actionResult)  // Usually "default"
 print("Summary stored:", shared["summary"].get("testFile.txt"))
