@@ -15,7 +15,7 @@ I agree, but I'm also too lazy to write them for you.
 
 import ollama from "ollama"
 
-async function callLLM(prompt: string): Promise<string> {
+async function callLLM(prompt: string) {
     const response = await ollama.generate({
         model: 'llama3.1',
         prompt
@@ -39,7 +39,7 @@ const openai = new OpenAI({
   apiKey: "<OPENROUTER_API_KEY>",
 })
 
-async function callLLM(prompt: string): Promise<string> {
+async function callLLM(prompt: string) {
     let r = await openai.chat.completions.create({
         model: "gpt-4o",
         messages: [{"role": "user", "content": prompt}]
