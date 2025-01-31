@@ -7,16 +7,16 @@ A **Node** is the smallest building block. Each Node has 3 steps:
 1. `prep(shared)`
    - A reliable step for preprocessing data from the `shared` store. 
    - Examples: *query DB, read files, or serialize data into a string*.
-   - Returns `prep_res`, which is used by `exec()` and `post()`.
+   - Returns `prepRes`, which is used by `exec()` and `post()`.
 
-2. `exec(prep_res)`
+2. `exec(prepRes)`
    - The **main execution** step, with optional retries and error handling (below).
    - Examples: *primarily for LLMs, but can also for remote APIs*.
    - ⚠️ If retries enabled, ensure idempotent implementation.
-   - ⚠️ This must **NOT** write to `shared`. If reads are necessary, extract them in `prep()` and pass them in `prep_res`.
-   - Returns `exec_res`, which is passed to `post()`.
+   - ⚠️ This must **NOT** write to `shared`. If reads are necessary, extract them in `prep()` and pass them in `prepRes`.
+   - Returns `execRes`, which is passed to `post()`.
 
-3. `post(shared, prep_res, exec_res)`
+3. `post(shared, prepRes, execRes)`
    - A reliable postprocessing step to write results back to the `shared` store and decide the next Action. 
    - Examples: *update DB, change states, log results, decide next Action*.
    - Returns a **string** specifying the next Action (`"default"` if none).
@@ -86,13 +86,13 @@ class SummarizeFile extends FNode {
     }
 }
 
-let summariseNode = new SummarizeFile(max_retries=3)
-summariseNode.setParams({"filename": "test_file.txt"})
+let summariseNode = new SummarizeFile(maxRetries=3)
+summariseNode.setParams({"filename": "testFile.txt"})
 
 // node.run() calls prep->exec->post
 // If exec() fails, it retries up to 3 times before calling execFallback()
 let actionResult = summariseNode.run(shared)
 
 print("Action returned:", actionResult)  // Usually "default"
-print("Summary stored:", shared["summary"].get("test_file.txt"))
+print("Summary stored:", shared["summary"].get("testFile.txt"))
 ```  
