@@ -22,6 +22,8 @@ Why Typescript (Javascript)? Based on my arbitrary and biased judgement, in orde
 - TypeScript is, well, typed, and LLMs love being sure about things beforehand (typing in Python is almost as ugly as asyncio)
 - The most popular AI development tools are increasingly training on JavaScript / TypeScript data (à la build-me-a-website-from-scratch)
 
+Check out [tool docs](./docs/7-tools.md) for some tool examples doing tricks on it for NPM.
+
 The rest of this README is **copy pasta** from the original repository. again, please do check them out! 
 
 Original PocketFlow GitHub: [PocketFlow GitHub](https://github.com/miniLLMFlow/PocketFlow)
