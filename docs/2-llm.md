@@ -108,6 +108,6 @@ const cache = new NodeCache()
 
 @CacheDecorator(cache)
 async function callLLM(prompt):
-    # Your implementation here
+    // Your implementation here
     return "Hello, World!"
 ```

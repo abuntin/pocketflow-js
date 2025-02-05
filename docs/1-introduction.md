@@ -1,4 +1,4 @@
-<h1 align="center">PocketFlow-JS - LLM Framework in 100 Lines</h1>
+<h1 align="center">PocketFlowJS - LLM Framework in 100 Lines</h1>
 
 <h1 align="center">Adapted with 🖤 from <a href="https://github.com/miniLLMFlow/PocketFlow">miniLLMFlow/PocketFlow</a></h1>
 

@@ -2,6 +2,8 @@
 
 A **Flow** orchestrates how Nodes connect and run, based on **Actions** returned from each Node’s `post()` method. You can chain Nodes in a sequence or create branching logic depending on the **Action** string.
 
+Note that whilst **Flow** also extends the BaseNode interface, the `exec()` method is not allowed. This was a feature of the [original implementation](https://github.com/The-Pocket/PocketFlow/blob/main/docs/flow.md), to allow the `run()` method to take in the SharedData and force execution that way. I might refactor this later, but yet to find a use case.
+
 ## 1. Action-based Transitions
 
 Each Node's `post(shared, prepRes, execRes)` method returns an **Action** string. By default, if `post()` doesn't explicitly return anything, we treat that as `"default"`.

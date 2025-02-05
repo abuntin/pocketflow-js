@@ -1,6 +1,6 @@
 # 6 - Agent
 
-Finally, why I fell in love with this idea, the following is an _entire agent_. In essence, an agent becomes a [Flow](./4-flow.md) with a **start** node and **end** node, but when given LLMs, takes dynamic and recursive actions based on the inputs they receive. Then, by the same magic, you can add these agents as **(F)Nodes** connected by *Actions* in more complex directed graphs. 
+Finally, why I fell in love with this idea, the following is an _entire agent in 100 lines_. In essence, an agent becomes a [Flow](./4-flow.md) with a **start** node and **end** node, but when given LLMs, takes dynamic and recursive actions based on the inputs they receive. Then, by the same magic, you can add these agents as **(F)Nodes** connected by *Actions* in more complex directed graphs. 
 
 This approach, whilst not as flashy as some other libraries out there (at the time of writing [**ElizaOS**](https://github.com/elizaOS/eliza) is getting some buzz, you should check them out) uses a combination of simple, easy-to-understand building blocks familiar to most developers, with the _direct access_ to the LLM itself. This gives _full control_ over the flow and allows you to integrate your own libraries seamlessly.  
 
